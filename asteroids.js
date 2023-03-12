@@ -254,7 +254,7 @@ function Render() {
         ship.visible = false;
         ctx.fillStyle = 'white';
         ctx.font = '50 px Arial';
-        ctx.fillText('GAME OVER', canvasWidth / 3, canvasHeight / 2);
+        ctx.fillText('GAME OVER', canvasWidth / 2 - 120 , canvasHeight / 2);
     }
 
     if(asteroids.length === 0){
