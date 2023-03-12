@@ -10,6 +10,7 @@ let score = 0;
 let lives = 3;
 let hyperspace = 1;
 
+// added in custom sprites for asteroids and ship
 let shipimg = new Image();
 shipimg.src = 'ship.png';
 
@@ -24,10 +25,11 @@ function HandleKeyDown(e) {
 
 function HandleKeyUp(e) {
 	keys[e.keyCode] = false;
-	if(e.keyCode === 32){
+	if(e.keyCode === 32){ // keyCode 32 is Spacebar
 		bullets.push(new Bullet(ship.angle));
 	}
-    if(e.keyCode === 16 && hyperspace >= 1){
+    // added in code for hyperspace function
+    if(e.keyCode === 16 && hyperspace >= 1){ // keyCode 16 is Shift key
 		ship.x = Math.floor(Math.random() * canvasWidth - 100) + 50;
 		ship.y = Math.floor(Math.random() * canvasHeight - 100) + 50;
 		velX = 0;
@@ -52,7 +54,6 @@ function SetupCanvas(){
 	document.body.addEventListener("keydown", HandleKeyDown);
 	document.body.addEventListener("keyup", HandleKeyUp);
 	Render();
-
 }
 
 // create Ship as well as its attributes
@@ -68,7 +69,6 @@ class Ship {
         this.rotationSpeed = 0.001;
         this.radius = 22;
         this.angle = 0;
-        //this.strokeColor = 'white';
         this.noseX = canvasWidth / 2 + 20;
         this.noseY = canvasHeight / 2;
     }
@@ -83,7 +83,7 @@ class Ship {
             this.velX += Math.cos(radians) * this.speed;
             this.velY += Math.sin(radians) * this.speed;
         }
-        if(this.x < this.radius) {
+        if(this.x < this.radius) { // if statements account for ship moving across screen edges
             this.x = canvas.width;
         }
         if(this.x > canvas.width) {
@@ -103,22 +103,10 @@ class Ship {
         this.y -= this.velY;
     }
     Draw() {
-        //ctx.strokeStyle = this.strokeColor;
-        //ctx.beginPath();
-        let vertAngle = ((Math.PI * 2) / 3);
         let radians = this.angle / Math.PI * 180;
         
         this.noseX = this.x - this.radius * Math.cos(radians);
         this.noseY = this.y - this.radius * Math.sin(radians);
-
-        /*
-        // old code for triangle ship
-        for(let i = 0; i < 3; i++) {
-            ctx.lineTo(this.x - this.radius * Math.cos(vertAngle * i + radians), this.y - this.radius * Math.sin(vertAngle * i + radians));
-        }
-        ctx.closePath();
-        ctx.stroke();
-        */
 
         ctx.save();
 		ctx.translate(this.x, this.y);
@@ -161,7 +149,6 @@ class Asteroid {
         this.speed = 2.5;
         this.radius = radius || 50;
         this.angle = Math.floor(Math.random() * 359);
-        //this.strokeColor = 'white';
         this.collisionRadius = collisionRadius || 46
         this.level = level || 1;
     }
@@ -183,18 +170,6 @@ class Asteroid {
         }
     }
     Draw() {
-        /*
-        // old code for simple hexagonal asteroids
-        ctx.beginPath();
-        let vertAngle = ((Math.PI * 2) / 6);
-        var radians = this.angle / Math.PI * 180;
-        for(let i = 0; i < 6; i++) {
-            ctx.lineTo(this.x - this.radius * Math.cos(vertAngle * i + radians), this.y - this.radius * Math.sin(vertAngle * i + radians));
-        }
-        ctx.closePath();
-        ctx.stroke();
-        */
-
         ctx.save();
 		ctx.translate(this.x, this.y);
 		ctx.drawImage(asteroidimg, -this.radius, -this.radius, 2 * this.radius, 2 * this.radius);
@@ -234,7 +209,6 @@ function DrawLifeShips() {
     }
 }
 
-// renders the game
 function Render() {
     ship.movingForward = (keys[87]);
     if(keys[68]) {
@@ -257,6 +231,7 @@ function Render() {
         ctx.fillText('GAME OVER', canvasWidth / 2 - 120 , canvasHeight / 2);
     }
 
+    // starts a new level if all asteroids have been cleared
     if(asteroids.length === 0){
 		ship.x = canvasWidth / 2;
 		ship.y = canvasHeight / 2;
@@ -273,6 +248,7 @@ function Render() {
 
 	DrawLifeShips();
 
+    // accounts for when a ship collides with an asteoroid
     if(asteroids.length !== 0) {
         for(let k = 0; k < asteroids.length; k++) {
             if(CircleCollision(ship.x, ship.y, 11, asteroids[k].x, asteroids[k].y, asteroids[k].collisionRadius)) {
@@ -287,6 +263,7 @@ function Render() {
 
     if(asteroids.length != 0 && bullets.length != 0) {
 loop1:
+        // accounts for when a bullet strikes different levels of asteroids
         for(let l = 0; l < asteroids.length; l++) {
             for(let m = 0; m < bullets.length; m++) {
                 if(CircleCollision(bullets[m].x, bullets[m].y, 3, asteroids[l].x, asteroids[l].y, asteroids[l].collisionRadius)) {
