@@ -2,7 +2,7 @@
 This is the repository for my Asteroids game based off of a tutorial video by DerekBanas on YouTube: https://www.youtube.com/watch?v=HWuU5ly0taA&list=LL&index=3&ab_channel=DerekBanas
 
 ### What I Did
-I expanded upon the basic framework of the game from the tutorial by adding custom ship and asteroid sprites. I also created a hyperspace function that will teleport the ship to any location on the screen. I then created a website using GitHub pages and published my game (https://egaeke.github.io/egaeke_Asteroids/).
+I expanded upon the basic framework of the game from the tutorial by adding custom ship and asteroid sprites as well as created a hyperspace function that will teleport the ship to any location on the screen. I also created a website using GitHub Pages and published my game at https://egaeke.github.io/egaeke_Asteroids/.
 
 ### Controls: 
 W,A,S,D to move,
