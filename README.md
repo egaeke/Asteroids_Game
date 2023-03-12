@@ -1,4 +1,4 @@
-This is the repository for my Asteroids game based off of https://www.youtube.com/watch?v=HWuU5ly0taA&list=LL&index=3&ab_channel=DerekBanas
+This is the repository for my Asteroids game based off of a video by DerekBanas on YouTube: https://www.youtube.com/watch?v=HWuU5ly0taA&list=LL&index=3&ab_channel=DerekBanas
 
 Controls: 
 W,A,S,D to move
