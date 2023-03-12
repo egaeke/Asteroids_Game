@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', SetupCanvas)
 
 function SetupCanvas() {
     canvas = document.getElementById('my-canvas');
-    ctx = canvas.getContext('2s');
+    ctx = canvas.getContext('2d');
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     
